@@ -17,4 +17,6 @@ chmod +x /entrypoint.sh
 
 VOLUME ["/etc/letsencrypt", "/data/letsencrypt"]
 
+ADD ./homepage /data/homepage
+
 CMD [ "/entrypoint.sh" ]
