@@ -1,0 +1,8 @@
+[Unit]
+Description=Run docker-registry-cert-renew.service every 15 days
+
+[Timer]
+OnActiveSec=15d
+
+[Install]
+WantedBy=multi-user.target
