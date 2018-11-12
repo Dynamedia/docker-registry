@@ -2,10 +2,13 @@ version: "3.4"
 
 services:
   nginx:
-    env_file: .env
     container_name: nginx
     image: my_docker_registry:latest
-    restart: unless-stopped 
+    environment:
+      LETSENCRYPT_HOST: exampledomain.com
+      LETSENCRYPT_EMAIL: admin@exampledomain.com
+    env_file: .env
+    restart: unless-stopped
     build:
       context: ./nginx
       args:
