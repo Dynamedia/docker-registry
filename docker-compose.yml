@@ -2,24 +2,21 @@ version: "3.4"
 
 services:
   nginx:
+    env_file: .env
     container_name: nginx
     image: my_docker_registry:latest
     restart: unless-stopped 
     build:
       context: ./nginx
       args:
-        - REGISTRY_USER=user
-        - REGISTRY_PASSWORD=password
-        - DOMAIN=my_domain.com
-      dockerfile: ./nginx.dockerfile
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./certs:/etc/letsencrypt
-      - ./certs-data:/data/letsencrypt
+        - REGISTRY_USER=${REGISTRY_USER}
+        - REGISTRY_PASSWORD=${REGISTRY_PASSWORD}
+        - DOMAIN=${VIRTUAL_HOST}
+    expose:
+      - 80
     networks:
-      - my-registry-network
+      - default
+      - docker-registry
     logging:
       driver: "json-file"
       options:
@@ -37,7 +34,7 @@ services:
     volumes:
       - ./data:/data
     networks:
-      - my-registry-network
+      - docker-registry
     logging:
       driver: "json-file"
       options:
@@ -46,6 +43,8 @@ services:
    
 
 networks:
-  my-registry-network:
-    driver: bridge
-
+  default:
+    external:
+      name: reverse-proxy
+  docker-registry:
+     driver: bridge

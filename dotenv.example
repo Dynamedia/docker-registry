@@ -1,0 +1,4 @@
+REGISTRY_USER=user
+REGISTRY_PASSWORD=password
+VIRTUAL_HOST=myregistry.mydomain.com
+VIRTUAL_PORT=3000

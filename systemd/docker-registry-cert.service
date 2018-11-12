@@ -1,9 +1,0 @@
-[Unit]
-Description=Renew letsencrypt certificate for docker registry
-
-[Service]
-Type=simple
-ExecStart=/home/core/docker-registry/ssl_renew.sh
-
-[Install]
-WantedBy=multi-user.target
